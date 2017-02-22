@@ -1,0 +1,221 @@
+/* Base */
+body,
+html {
+	margin: 0;
+	padding: 0;
+	color: #777;
+	line-height: 1.5;
+	font-family: "futura-pt", sans-serif;
+	font-weight: 300;
+	text-align: center;
+}
+html {
+	font-size: 62.5%;
+}
+body {
+	font-size: 2.4rem;
+}
+/* Layout */
+.page-width {
+	padding-left: 20px;
+	padding-right: 20px;
+	max-width: 860px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* Vertical Rhythm */
+p {
+	margin-top: 0;
+	margin-bottom: 30px;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	margin-bottom: 24px;
+}
+/* Typography */
+h1, h2, h3 {
+	font-weight: 500;
+	color: #222;
+	line-height: 1.2;
+}
+h1 {
+	font-size: 5rem;
+}
+h2 {
+	font-size: 4rem;
+}
+h3 {
+	font-size: 3rem;
+}
+/* Links */
+a {
+	color: #3061d1;
+	text-decoration: none;
+	/* underlines stolen from medium */
+	background-image: linear-gradient(to bottom,#3061d1 50%,rgba(0,0,0,0) 50%);
+    background-repeat: repeat-x;
+    background-size: 2px .1em;
+    background-position: 0 1.08em;
+}
+/* Tables */
+table {
+	width: 100%;
+	text-align: left;
+	font-size: 2rem;
+}
+td {
+	vertical-align: top;
+	border: none;
+	padding: 5px 8px;
+}
+.title-cell {
+	font-weight: 500;
+	color: #222;
+	padding-left: 0;
+	display: none;
+}
+.description-cell {
+	padding-left: 0;
+}
+.accuracy-cell {
+	padding-right: 0;
+}
+@media (min-width: 500px) {
+	.title-cell {
+		display: table-cell;
+	}
+	.description-cell {
+		padding-left: 5px;
+	}
+}
+/* Fancy shit */
+hr {
+	margin: 4em auto;
+	width: 160px;
+	border: none;
+	height: 1px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+	position: relative;
+}
+hr:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 8px;
+	height: 8px;
+	background: #ccc;
+	border: 2px solid #FFF;
+	-webkit-transform: translate(-5px, -6px) rotate(45deg);
+}
+/* Hero */
+.hero {
+	overflow: hidden;
+	position: relative;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#153d42+0,0e2123+100 */
+	background: #153d42; /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  #153d42 0%, #0e2123 100%); /* FF3.6-15 */
+	background: -webkit-radial-gradient(center, ellipse cover,  #153d42 0%,#0e2123 100%); /* Chrome10-25,Safari5.1-6 */
+	background: radial-gradient(ellipse at center,  #153d42 0%,#0e2123 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#153d42', endColorstr='#0e2123',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+.hero-bg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.hero-inner {
+	position: relative;
+	padding: 7em 0 5.4em;
+	z-index: 2;
+}
+.logo {
+	display: inline-block;
+	color: #FFF;
+	font-size: 6rem;
+	margin-bottom: 35px;
+	background-image: linear-gradient(to bottom,#FFF 50%,rgba(0,0,0,0) 50%);
+    background-repeat: repeat-x;
+    background-size: 2px .15em;
+    background-position: 0 1.085em;
+    position: relative;
+    margin-top: 50px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.logo:after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: -50px;
+	border: 20px solid transparent;
+	border-top: 25px solid #FFF;
+	-webkit-transform: translateX(-20px);
+	-moz-transform: translateX(-20px);
+	transform: translateX(-20px);
+}
+.lede {
+	color: #FFF;
+	font-size: 3.3rem;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-shadow: 0 0 5px rgba(0,0,0,1);
+}
+/* Main */
+.main {
+	padding: 4em 0;
+}
+.content-section {
+	padding: ;
+}
+/* Articles */
+.articles {
+	max-width: 700px;
+	padding: 20px;
+	margin: 4em auto;
+	background: #222 url(images/blur-bg.jpg) center center no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	margin-left: -20px;
+	margin-right: -20px;
+}
+.articles-inner {
+	padding: 1.2em;
+	background: #FFF;
+}
+@media (min-width: 500px) {
+	.articles {
+		margin-left: auto;
+		margin-right: auto;
+		padding: 16px;
+	}
+	.articles-inner {
+		padding: 2em;
+	}
+}
+.article {
+	text-align: left;
+	padding: 25px 0;
+	font-size: 1.9rem;
+	border-top: 1px solid #eee;
+}
+.article:first-child {
+	border-top: none;
+	padding-top: 6px;
+}
+.article-title {
+	font-size: 2.4rem;
+	margin-bottom: 8px;
+}
+.article-summary p {
+	margin-bottom: 8px;
+}
+.article-link {
+
+}
