@@ -1,0 +1,25 @@
+{
+  "name": "syntropy-website",
+  "version": "1.0.0",
+  "description": "initial syntropy website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syntropy-ai/website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syntropy-ai/website/issues"
+  },
+  "homepage": "https://github.com/syntropy-ai/website#readme",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-root-slash-import": "^1.1.0"
+  }
+}

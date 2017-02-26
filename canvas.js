@@ -1,155 +1,157 @@
-(function(){
+'use strict';
 
-// === Config === //
-var config = {
-	density: 15,
-	nodeSize: 2,
-	voidSize: 70
-};
+(function () {
 
-// === Setup === //
-var play = true,
-	it = 0,
-	c = document.getElementById('c'),
-	ctx = c.getContext('2d'),
-	hero = c.parentElement,
-	nodes = [],
-	xspeed = hero.offsetWidth / 500,
-	yspeed = hero.offsetHeight / 500;
+  var c = document.getElementById('c'),
+      ctx = c.getContext('2d'),
+      hero = c.parentElement,
+      width = hero.offsetWidth,
+      height = hero.offsetHeight,
+      xCentre = width / 2,
+      yCentre = height / 2,
+      xSpeed = width / 500,
+      ySpeed = height / 500,
+      voidSize = 70,
+      density = 13,
+      minNodeSize = 1,
+      maxNodeSize = 1,
+      baseColour = {
+    r: 255, g: 255, b: 255
+  },
+      totalNodes = Math.round(width / density * height / density);
 
-c.width = hero.offsetWidth;
-c.height = hero.offsetHeight;
-var imgData = ctx.getImageData(0, 0, c.width, c.height);
-setNodeStyles('#67ddff');
+  var play = true,
+      iter = 0;
 
-// Create nodes
-addNodes(hero.offsetWidth / config.density * hero.offsetHeight / config.density);
+  c.width = width;
+  c.height = height;
+  var imgData = ctx.getImageData(0, 0, width, height);
 
-// === Animation loop === //
-function animationLoop() {
-	for(var n=0; n<nodes.length; n++) {
-		nodes[n].move();
-	}
-	clearCanvas();
-	drawNodes();
-	it++;
-	if(play) {
-		requestAnimationFrame(animationLoop);
-	}
-}
-requestAnimationFrame(animationLoop);
+  var insideVoid = function insideVoid(x, y, xFromC, yFromC) {
+    return yFromC < voidSize && xFromC + y - yCentre < voidSize;
+  };
+
+  var outsideBounds = function outsideBounds(x, y) {
+    return x < 0 || y < 0 || x >= width || y >= height;
+  };
+
+  var updateDistFromCentre = function updateDistFromCentre(node) {
+    node.xFromC = Math.abs(node.x - xCentre);
+    node.yFromC = Math.abs(node.y - yCentre);
+  };
+
+  var generateNodes = function generateNodes() {
+    var sizeRange = maxNodeSize - minNodeSize;
+    var output = new Array(totalNodes);
+    for (var i = 0; i < totalNodes; ++i) {
+      var strength = Math.random() * 100 + 155;
+      output[i] = {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        nodeSize: Math.round(Math.random() * sizeRange + minNodeSize),
+        /*colour: {
+          ...baseColour
+        },*/
+        colour: {
+          r: strength,
+          g: strength,
+          b: strength
+        },
+        neighbour: i > 0 ? output[i - 1] : null
+      };
+      updateDistFromCentre(output[i]);
+    }
+    output[0].neighbour = output[totalNodes - 1];
+    return output;
+  };
+
+  var nodes = generateNodes();
+
+  var move = function move(node) {
+    var x = node.x,
+        y = node.y,
+        xFromC = node.xFromC,
+        yFromC = node.yFromC,
+        neighbour = node.neighbour;
 
 
-// === Node object === //
-function Node(x, y, n) {
-	this.x = x;
-	this.y = y;
-	this.index = n;
-}
+    if (insideVoid(x, y, xFromC, yFromC) || outsideBounds(x, y)) {
+      // reset node position
+      node.x = Math.random() * width;
+      node.y = Math.random() * height;
+    } else {
+      // move towards left neighbour at random speed
+      /*const moveX = Math.round((Math.random() * 2 - 1) * xSpeed)
+      const moveY = Math.round((Math.random() * 2 - 1) * ySpeed)
+      node.x += moveX + neighbour.x - x > 0 ? 1 : -1
+      node.y += moveY + neighbour.y - y > 0 ? 1 : -1*/
+      var dirX = node.x < neighbour.x ? 1 : -1;
+      var dirY = node.y < neighbour.y ? 1 : -1;
+      node.x += dirX * (Math.random() * xSpeed);
+      node.y += dirY * (Math.random() * ySpeed);
+    }
 
-// Move a node
-Node.prototype.move = function() {
-	// New starting position if we're in the no-go zone
-	var xcentre = c.width / 2,
-		ycentre = c.height / 2,
-		xfromc = Math.abs(this.x - xcentre),
-		yfromc = Math.abs(this.y - ycentre);
-	if(yfromc < config.voidSize && xfromc + this.y - ycentre < config.voidSize
-		|| this.x < 0 || this.y < 0 || this.x > c.width || this.y > c.height) {
-		this.x = Math.random() * c.width;
-		this.y = Math.random() * c.height;
-	} else {
-		// Some amount of random
-		var moveX = Math.round((Math.random() * 2 - 1) * xspeed);
-		var moveY = Math.round((Math.random() * 2 - 1) * yspeed);
-		// Attraction to neighbours
-		var leftNeighbour = typeof(nodes[this.index - 1]) !== 'undefined' ? nodes[this.index - 1] : nodes[nodes.length - 1];
-		moveX += leftNeighbour.x - this.x > 0 ? 1 : -1;
-		moveY += leftNeighbour.y - this.y > 0 ? 1 : -1;
-		// Update position
-		this.x = Math.round(moveX + this.x);
-		this.y = Math.round(moveY + this.y);
-	}
-};
+    // update the distance from centres
+    updateDistFromCentre(node);
+  };
 
-// === Adding / removing nodes === //
-function addNodes(numToAdd) {
-	for(var n=0; n<numToAdd; n++) {
-		var x = Math.round(Math.random() * c.width),
-			y = Math.round(Math.random() * c.height);
-		nodes.push(new Node(x, y, n));
-	}
-}
-function removeNodes(numToRemove) {
-	nodes.splice(0, numToRemove);
-}
+  var fillPixel = function fillPixel(arrayPos, color) {
+    var p = arrayPos * 4;
+    var _imgData = imgData,
+        data = _imgData.data;
 
-// === Canvas functions === //
+    data[p] = color.r;
+    data[p + 1] = color.g;
+    data[p + 2] = color.b;
+    data[p + 3] = 255;
+  };
 
-// No need to set these more than once
-function setNodeStyles(colour) {
-	ctx.fillStyle = '#67ddff';
-	//ctx.fillStyle = colour; // #67ffe2 #6789ff
-	//ctx.shadowColor = '#67ddff';
-	//ctx.shadowBlur = 30;
-}
+  var paint = function paint(node) {
+    var x = Math.round(node.x);
+    var y = Math.round(node.y);
+    var colour = node.colour,
+        nodeSize = node.nodeSize;
 
-// Function to draw nodes to canvas
-function drawNodes() {
-	for(var n=0; n<nodes.length; n++) {
-		/*
-		if(n === 0) {
-			setNodeStyles('#67ddff');
-		} else if(n === Math.floor(nodes.length / 3)) {
-			setNodeStyles('#67b3ff');
-		} else if(n === Math.floor(nodes.length / 3 * 2)) {
-			setNodeStyles('#67ffe2');
-		}
-		*/
-		ctx.fillRect(nodes[n].x, nodes[n].y, config.nodeSize, config.nodeSize);
-	}
-}
 
-// Draws nodes by changing the image data directly
-// Faster for high number of nodes
-function drawBulkNodes() {
-	imgData.data.fill(0);
-	for(var n=0; n<nodes.length; n++) {
-		// Get first pixel's position (don't worry about data structure)
-		var firstPixel = nodes[n].y * c.width + nodes[n].x;//nodes[n].x * nodes[n].y * 4;
-		var lastInRow = nodes[n].x % c.width === 0;
-		var lastInCol = nodes[n].y % c.height === 0;
-		// Fill top left pixel
-		fillPixel(firstPixel);
-		// Top right pixel if not off edge
-		if(!lastInRow) {
-			fillPixel(firstPixel + 1);
-		}
-		// Bottom left pixel if not off bottom
-		if(!lastInCol) {
-			fillPixel(firstPixel + c.width);
-			// Bottom right pixel if not off edge
-			if(!lastInRow) {
-				fillPixel(firstPixel + 1 + c.width);
-			}
-		}
-	}
-	ctx.putImageData(imgData, 0, 0);
-}
+    var maxLeft = Math.min(x + nodeSize, width);
+    var maxTop = Math.min(y + nodeSize, height);
+    for (var left = x; left < maxLeft; ++left) {
+      for (var top = y; top < maxTop; ++top) {
+        fillPixel(left + top * width, colour);
+      }
+    }
+  };
 
-// Fill a single pixel in an imgData array
-// @param pixelR index of R value in array
-function fillPixel(pixel) {
-	pixel *= 4;
-	imgData.data[pixel] = 103;
-	imgData.data[pixel + 1] = 221;
-	imgData.data[pixel + 2] = 255;
-	imgData.data[pixel + 3] = 255;
-}
+  var processNode = function processNode(node) {
+    // do movement
+    move(node);
 
-// Clears canvas
-function clearCanvas() {
-	ctx.clearRect(0, 0, c.width, c.height);
-}
+    // do painting
+    paint(node);
+  };
 
-}());
+  var clearCanvas = function clearCanvas() {
+    ctx.clearRect(0, 0, width, height);
+    //imgData.data.fill(0);
+    //imgData = ctx.createImageData(width, height);
+    imgData = ctx.getImageData(0, 0, width, height);
+  };
+
+  var animLoop = function animLoop() {
+    // clear the canvas
+    clearCanvas();
+    // single node work loop
+    for (var n = 0; n < totalNodes; ++n) {
+      processNode(nodes[n]);
+    }
+    // paint on the canvas
+    ctx.putImageData(imgData, 0, 0);
+    iter++;
+    if (play) {
+      requestAnimationFrame(animLoop);
+    }
+  };
+
+  // start the animation
+  requestAnimationFrame(animLoop);
+})();
