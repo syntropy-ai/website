@@ -4,6 +4,7 @@
   "description": "initial syntropy website",
   "main": "index.js",
   "scripts": {
+    "build": "./node_modules/.bin/babel canvas.source.js --out-file canvas.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
