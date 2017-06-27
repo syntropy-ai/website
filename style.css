@@ -267,6 +267,11 @@ hr:after {
 	width: 45%;
 	vertical-align: top;
 }
+@media (max-width: 680px) {
+	.team-member {
+		width: 100%;
+	}
+}
 .team-member--img {
 	line-height: 0;
 	border-radius: 100%;
