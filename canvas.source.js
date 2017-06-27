@@ -26,6 +26,14 @@ c.width = width
 c.height = height
 let imgData = ctx.getImageData(0, 0, width, height)
 
+const gaussianRand = () => {
+  var rand = 0
+  for (var i = 0; i < 2; i += 1) {
+    rand += Math.random()
+  }
+  return rand / 2
+}
+
 const insideVoid = (x, y, xFromC, yFromC) => {
   return yFromC < voidSize && xFromC + y - yCentre < voidSize
 }
@@ -43,10 +51,10 @@ const generateNodes = () => {
   const sizeRange = maxNodeSize - minNodeSize
   const output = new Array(totalNodes)
   for(var i=0; i<totalNodes; ++i){
-    const strength = Math.random() * 100 + 155
+    const strength = 255//Math.random() * 100 + 155
     output[i] = {
-      x: Math.random() * width,
-      y: Math.random() * height,
+      x: gaussianRand() * width,
+      y: gaussianRand() * height,
       nodeSize: Math.round(Math.random() * sizeRange + minNodeSize),
       /*colour: {
         ...baseColour
@@ -95,7 +103,7 @@ const fillPixel = (arrayPos, color) => {
   data[p] = color.r
   data[p + 1] = color.g
   data[p + 2] = color.b
-  data[p + 3] = 255
+  data[p + 3] = 180
 }
 
 const paint = node => {

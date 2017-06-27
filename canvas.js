@@ -27,6 +27,14 @@
   c.height = height;
   var imgData = ctx.getImageData(0, 0, width, height);
 
+  var gaussianRand = function gaussianRand() {
+    var rand = 0;
+    for (var i = 0; i < 2; i += 1) {
+      rand += Math.random();
+    }
+    return rand / 2;
+  };
+
   var insideVoid = function insideVoid(x, y, xFromC, yFromC) {
     return yFromC < voidSize && xFromC + y - yCentre < voidSize;
   };
@@ -44,10 +52,10 @@
     var sizeRange = maxNodeSize - minNodeSize;
     var output = new Array(totalNodes);
     for (var i = 0; i < totalNodes; ++i) {
-      var strength = Math.random() * 100 + 155;
+      var strength = 255; //Math.random() * 100 + 155
       output[i] = {
-        x: Math.random() * width,
-        y: Math.random() * height,
+        x: gaussianRand() * width,
+        y: gaussianRand() * height,
         nodeSize: Math.round(Math.random() * sizeRange + minNodeSize),
         /*colour: {
           ...baseColour
@@ -103,7 +111,7 @@
     data[p] = color.r;
     data[p + 1] = color.g;
     data[p + 2] = color.b;
-    data[p + 3] = 255;
+    data[p + 3] = 180;
   };
 
   var paint = function paint(node) {
