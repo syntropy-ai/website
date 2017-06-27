@@ -11,8 +11,8 @@
       yCentre = height / 2,
       xSpeed = width / 500,
       ySpeed = height / 500,
-      voidSize = 70,
-      density = 13,
+      voidSize = 100,
+      density = 17,
       minNodeSize = 1,
       maxNodeSize = 1,
       baseColour = {
@@ -111,7 +111,7 @@
     data[p] = color.r;
     data[p + 1] = color.g;
     data[p + 2] = color.b;
-    data[p + 3] = 180;
+    data[p + 3] = 200;
   };
 
   var paint = function paint(node) {

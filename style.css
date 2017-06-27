@@ -116,7 +116,7 @@ hr:after {
 	overflow: hidden;
 	position: fixed;
 	width: 100%;
-	height: 630px;
+	height: 100vh;
 	top: 0;
 	left: 0;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#153d42+0,0e2123+100 */
@@ -142,6 +142,7 @@ hr:after {
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%,-50%);
+	width: 100%;
 	/*padding: 9em 0 7.4em;*/
 	z-index: 2;
 }
@@ -169,6 +170,7 @@ hr:after {
 	-webkit-transform: translateX(-20px);
 	-moz-transform: translateX(-20px);
 	transform: translateX(-20px);
+	filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
 }
 .lede {
 	color: #FFF;
@@ -177,10 +179,19 @@ hr:after {
 	margin-right: 10px;
 	text-shadow: 0 0 15px rgba(0,0,0,1);
 }
+@media (max-width: 768px) {
+	.logo {
+		font-size: 4rem;
+		margin-bottom: 12px;
+	}
+	.lede {
+		font-size: 2.6rem;
+	}
+}
 /* Main */
 .main {
 	padding: 4em 0;
-	margin-top: 630px;
+	margin-top: 100vh;
 	position: relative;
 	background: #FFF;
 	box-shadow: 0 0 50px rgba(0,0,0,0.3);
