@@ -3,9 +3,9 @@ body,
 html {
 	margin: 0;
 	padding: 0;
-	color: #777;
+	color: #595567;
 	line-height: 1.5;
-	font-family: "futura-pt", sans-serif;
+	font-family: "Lato", "futura-pt", sans-serif;
 	font-weight: 300;
 	text-align: center;
 }
@@ -13,13 +13,17 @@ html {
 	font-size: 62.5%;
 }
 body {
-	font-size: 2.4rem;
+	font-size: 2rem;
+}
+img {
+	max-width: 100%;
+	height: auto;
 }
 /* Layout */
 .page-width {
 	padding-left: 20px;
 	padding-right: 20px;
-	max-width: 860px;
+	max-width: 880px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -34,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Typography */
 h1, h2, h3 {
-	font-weight: 500;
+	font-weight: 700;
 	color: #2f2650;
 	line-height: 1.2;
 }
@@ -42,10 +46,13 @@ h1 {
 	font-size: 5rem;
 }
 h2 {
-	font-size: 4rem;
+	font-size: 3.5rem;
 }
 h3 {
-	font-size: 3rem;
+	font-size: 2.2rem;
+}
+.intro {
+	font-size: 2.3rem;
 }
 /* Links */
 a {
@@ -182,7 +189,7 @@ hr:after {
 @media (max-width: 768px) {
 	.logo {
 		font-size: 4rem;
-		margin-bottom: 12px;
+		margin-bottom: 22px;
 	}
 	.lede {
 		font-size: 2.6rem;
@@ -229,7 +236,7 @@ hr:after {
 .article {
 	text-align: left;
 	padding: 25px 0;
-	font-size: 1.9rem;
+	font-size: 1.8rem;
 	border-top: 1px solid #eee;
 }
 .article:first-child {
@@ -237,7 +244,8 @@ hr:after {
 	padding-top: 6px;
 }
 .article-title {
-	font-size: 2.4rem;
+	font-size: 2.2rem;
+	font-weight: 400;
 	margin-bottom: 8px;
 	color: #24627d;
 }
@@ -246,4 +254,52 @@ hr:after {
 }
 .article-link {
 
+}
+/* Team */
+.team {
+	margin: 9rem 0;
+}
+.team--members {
+	text-align: center;
+}
+.team-member {
+	display: inline-block;
+	width: 45%;
+	vertical-align: top;
+}
+.team-member--img {
+	line-height: 0;
+	border-radius: 100%;
+	overflow: hidden;
+	max-width: 200px;
+	margin: auto;
+	height: auto;
+}
+.team-member--body {
+	max-width: 340px;
+	margin: auto;
+	padding: 3rem 0 0;
+}
+.team-member--title {
+	margin-bottom: 1rem;
+}
+.team-member--subtitle {
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
+}
+.team-member--sep {
+	font-size: 90%;
+	font-family: Arial, sans-serif;
+	color: #999;
+	display: inline-block;
+	margin: 0 2px;
+}
+.team-member--bio {
+	font-size: 1.8rem;
+}
+.team-member--social a {
+	background: transparent;
+	display: inline-block;
+	margin: 0 2px;
+	font-size: 2rem;
 }

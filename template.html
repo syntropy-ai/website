@@ -13,7 +13,13 @@
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<!-- Typekit -->
+	<!-- Font Awesome -->
+	<script src="https://use.fontawesome.com/26a1a0bdc4.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+
+	<!-- Typekit 
 	<script>
 	  (function(d) {
 	    var config = {
@@ -23,7 +29,7 @@
 	    },
 	    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
 	  })(document);
-	</script>
+	</script>-->
 	
 </head>
 <body>
@@ -40,8 +46,57 @@
 				<header>
 					<h2>What is SIA?</h2>
 				</header>
-				<div>
+				<div class="intro">
 					<p>SIA is an unsupervised artificial neural network that finds invariant sub-componenents in input data. Sub-components are found using online, local learning rules, without labels or backpropagation. One-shot and zero-shot classification can then be achieved by comparing active sub-components.</p>
+				</div>
+			</section>
+			<section class="content-section team">
+				<header>
+					<h2>Contact</h2>
+				</header>
+				<div class="team--members">
+					<div class="team-member">
+						<div class="team-member--img">
+							<img src="images/matt.jpg" alt="Matt Way">
+						</div>
+						<div class="team-member--body">
+							<h3 class="team-member--title">Matt Way</h3>
+							<p class="team-member--subtitle">
+								Founder
+								<span class="team-member--sep">//</span>
+								+61 421 089 383
+								<span class="team-member--sep">//</span>
+								<a target="_blank" href="mailto:matt@syntropy.xyz">Email</a>
+							</p>
+							<p class="team-member--social">
+								<a href="https://twitter.com/_MattWay" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								<a href="https://www.linkedin.com/in/matt-way-b477676a/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+								<a href="https://github.com/matt-way/" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+								<a href="https://stackoverflow.com/users/277697/matt-way?tab=profile" target="_blank"><i class="fa fa-stack-overflow" aria-hidden="true"></i></a>
+							</p>
+						</div>
+					</div>
+					<div class="team-member">
+						<div class="team-member--img">
+							<img src="images/angus.jpg" alt="Angus Russell">
+						</div>
+						<div class="team-member--body">
+							<h3 class="team-member--title">Angus Russell</h3>
+							<p class="team-member--subtitle">
+								Founder
+								<span class="team-member--sep">//</span>
+								+61 448 326 877
+								<span class="team-member--sep">//</span>
+								<a target="_blank" href="mailto:angus@syntropy.xyz">Email</a>
+							</p>
+							<p class="team-member--social">
+								<a href="https://twitter.com/Angus_Russell" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								<a href="https://www.linkedin.com/in/angusrussell89/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+								<a href="https://angel.co/angus-russell" target="_blank"><i class="fa fa-angellist" aria-hidden="true"></i></a>
+							</p>
+						</div>
+					</div>
+					
 				</div>
 			</section>
 			<section class="content-section articles">
