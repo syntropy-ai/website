@@ -4,10 +4,17 @@
 var c = document.getElementById('c'),
     hero = c.parentElement,
     width = hero.offsetWidth,
-    height = hero.offsetHeight
+    height = hero.offsetHeight,
+    density = 15,
+    radius = 6,
+    diam = radius * 2,
+    speed = 0.025,
+    voidRadius = 1.5,
+    total = Math.round(width / density * height / density)
 
 var scene = new THREE.Scene()
 var camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 )
+var sprite = new THREE.TextureLoader().load( "textures/disc.png" );
 
 var renderer = new THREE.WebGLRenderer({ alpha: true })
 renderer.setSize(width, height)
@@ -23,12 +30,6 @@ function gaussRand() {
     return (Math.random() + Math.random()) / 2
 }
 
-var total = 10000
-var radius = 6
-var diam = radius * 2
-var speed = 0.05
-var voidRadius = 1.5
-
 for(var v=0; v<total; v++){
   var dot = new THREE.Vector3()
   dot.x = gaussRand() * diam - radius
@@ -37,7 +38,9 @@ for(var v=0; v<total; v++){
   geometry.vertices.push(dot)
 }
 
-var material = new THREE.PointsMaterial({ color: 0x666666, size: 0.02 })
+//var material = new THREE.PointsMaterial({ color: 0x87d1da, size: 0.0125 })
+var material = new THREE.PointsMaterial( { size: 0.0175, map: sprite, alphaTest: 0.5, transparent: true } )
+//material.color.setHSL( 1.0, 0.3, 0.7 );
 var cube = new THREE.Points(geometry, material)
 parent.add(cube)
 
@@ -48,7 +51,7 @@ var centre = new THREE.Vector3(0,0,0)
 function anim() {
   requestAnimationFrame(anim)
 
-  parent.rotation.y += 0.005
+  parent.rotation.y += 0.002
 
   var verts = cube.geometry.vertices
   for(var v=0; v<verts.length; v++){
@@ -60,8 +63,8 @@ function anim() {
     }
     var target = v === verts.length - 1 ? verts[0] : verts[v + 1]
     //moveTo(vert, target, Math.random() * speed)    
-    //vert.lerp(target, Math.random() * speed * (1 / vert.distanceTo(target)))
-    vert.lerp(target, speed * (1 / vert.distanceTo(target)))
+    vert.lerp(target, gaussRand() * speed * (1 / vert.distanceTo(target)))
+    //vert.lerp(target, speed * (1 / vert.distanceTo(target)))
   }  
   cube.geometry.verticesNeedUpdate = true;
 
