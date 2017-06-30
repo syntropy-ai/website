@@ -4,7 +4,6 @@
   "description": "initial syntropy website",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel canvas.source.js --out-file canvas.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +17,5 @@
   },
   "homepage": "https://github.com/syntropy-ai/website#readme",
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-latest": "^6.22.0",
-    "babel-root-slash-import": "^1.1.0"
   }
 }
