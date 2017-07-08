@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Syntropy - Problem and Solution</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<link rel="shortcut icon" href="favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- Font Awesome -->
+	<script src="https://use.fontawesome.com/26a1a0bdc4.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	
+</head>
+<body>
+	<header class="page-header gradient">
+		<div class="page-header--nav">
+			<a href="/" class="logo">Syntropy</a>
+		</div>
+		<div class="page-width page-header--inner">
+			<h1 class="page-header--title">The problems with deep learning, and the solution</h1>
+		</div>
+	</header>
+	<main class="main">
+		<div class="page-width">
+			<section class="content-section">
+				<div class="intro">
+					<p>This page contains a high level overview of the problems with deep learning, our solution to those problems, and how that solution works. If you have any questions after reading this, feel free to email us at <a href="mailto:info@syntropy.xyz">info@syntropy.xyz</a>.</p>
+				</div>
+			</section>
+			<div class="hr"><hr></div>
+			<section class="content-section align-left">
+
+				<h2>The problems with deep learning</h2>
+				<p>Current deep learning architectures suffer major shortcomings that don't seem to affect humans.</p>
+				<ul>
+					<li>They require a LOT of labelled data.</li>
+					<li>They are good at solving narrow problems, but don't generalise well.</li>
+					<li>They're fixed - changing the labelling system requires re-training.</li>
+					<li>They're black boxes - we can see that they make good decisions, but we don't really know how they arrive at them. Caveat: this is also true of humans.</li>
+				</ul>
+
+				<h2>The solution</h2>
+				<p>Our unsupervised learning algorithm solves all of these problems.</p>
+				<ul>
+					<li>It trains without labelled data to build an internal representation of what it sees.</li>
+					<li>By building this internal representation rather than backpropagating errors (the way neural nets are typically trained), we have a strong base for generalisation.</li>
+					<li>Classification is a layer on top of the representation, so any changes to labelling can be made without re-training.</li>
+					<li>It is inspectable and understandable. We can see exactly how it arrived at a decision.</li>
+				</ul>
+
+				<h2>How it works</h2>
+				<ul>
+					<li>The input feeds into a layer of neurons that are separated into 'manifolds' - groups of neurons that represent a concept (E.g. a vertical line) in all of it's variations.</li>
+					<li>One or more manifolds are selected as the 'winners' - the ones that most closely match the input.</li>
+					<li>The winning manifolds then each try to reconstruct the input, and their reconstructions are combined into a single reconstruction.</li>
+					<li>Each winning manifold then learns to better reconstruct the difference between the original input and the reconstructed input.</li>
+					<li>Over time this leaves us with manifolds that represent parts. E.g. a vertical line, a curve or a corner.</li>
+					<li>This final 'map of manifolds' is our internal representation of the data.</li>
+				</ul>
+
+				<figure>
+					<img src="images/mnist_manifolds.png" alt="Manifolds trained on MNIST">
+					<figcaption>25 manifolds of 20 neurons trained on MNIST episodes - each is able to represent and reconstruct a ‘part’ in various transformational states.</figcaption>
+				</figure>
+
+				<h2>Classification</h2>
+				<p>There are many ways classification can be done on top of this representation. At it's most simple, you can just compare winning manifolds between a known input and the current input. E.g. 'This input has a top horizontal line and a forward leaning vertical line - last time I saw those together I was told it was a 7'. With this classification method it follows that the more tolerant the manifolds are to variance, the fewer labelled examples we need to show the system for it to achieve high classification accuracy. See below for more on invariant manifolds.</p>
+
+				<h2>Manifold Invariance</h2>
+				<p>Getting manifolds to be able to represent a part in all of it’s forms (i.e. to be invariant to transformational change) is actually the most important piece of the puzzle. It's what allows the model to say "This input is made of the same parts as that input, even though there's hardly any pixel overlap" - <em>without</em> feeding it a ton of labelled examples.</p>
+				<p>Our insight is that as humans, we experience vision (and all our senses) as a stream of data, and statistically speaking, the contents of each successive frame of vision we process contains the same things as the last frame, even if it's moved slightly. We leverage this insight in our algorithm by training on streaming input that we call 'episodes' - N <em>different</em> inputs that we know all contain the same thing. Here's an example of an episode created from a single MNIST digit by applying various transforms.</p>
+
+				<figure>
+					<img src="images/mnist_episode.png" alt="MNIST Episode">
+					<figcaption>An episode created by randomly transforming an MNIST digit.</figcaption>
+				</figure>
+
+				<p>When we see an episode, we score each manifold on how well it represents each frame, and sum the frame scores to find winners. Each winning manifold then learns to better represent every frame of the episode.</p>
+
+			</section>
+		</div>
+	</main>
+	<footer>
+		<div class="page-width">
+			
+		</div>
+	</footer>
+	<script src="js/libs/three.min.js"></script>
+	<script src="js/header.js"></script>
+</body>
+</html>

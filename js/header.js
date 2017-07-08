@@ -67,6 +67,9 @@ function anim() {
 }
 anim()
 
+// Fade in the canvas
+c.style.opacity = '1'
+
 function gaussRand() {
     return (Math.random() + Math.random()) / 2
 }
