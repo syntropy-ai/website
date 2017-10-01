@@ -364,3 +364,21 @@ hr:after {
 	margin: 0 2px;
 	font-size: 2rem;
 }
+
+/* Assistant link */
+.assistant-link {
+	/*color: #094ce4 !important;*/
+	background: none;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 100px;
+}
+.assistant-link i {
+	font-size: 0.9em;
+	margin-left: 5px;
+	transform: translateX(0);
+	transition: transform 0.7s ease;
+}
+.assistant-link:hover i {
+	transform: translateX(10px);
+}
